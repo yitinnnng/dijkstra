@@ -1,0 +1,73 @@
+//package 圖論;    
+import java.util.ArrayDeque;  
+import java.util.Comparator;  
+import java.util.PriorityQueue;  
+import java.util.Queue;  
+import java.util.Scanner;    
+public class Main {      
+	static class node      {          
+		int x; //節點編號          
+		int lenth;//長度          
+		public node(int x,int lenth) {              
+			this.x=x;              
+			this.lenth=lenth;          }      
+		
+	}        
+public static void main(String[] args) {            
+	int[][] map = new int[6][6];//記錄權值，順便記錄鏈接情況        
+	initmap(map);//初始化          
+	boolean bool[]=new boolean[6];//判斷是否已經確定最小值          
+	int len[]=new int[6];//長度          
+	for(int i=0;i<6;i++){              
+		len[i]=Integer.MAX_VALUE;          
+		
+	}          
+	Queue<node>q1=new PriorityQueue<node>(com);          
+	len[0]=0;//從0這個點開始          
+	q1.add(new node(0, 0));          
+	int count=0;//計算執行了幾次dijkstra          
+	while (!q1.isEmpty()) {
+		node t1=q1.poll();              
+		int index=t1.x;//節點編號              
+		int length=t1.lenth;//節點當前點距離              
+		bool[index]=true;//拋出的點確定              
+		count++;// 執行了6次就可以確定就不需要繼續執行了  這句可有可無，有了減少計算次數              
+		for(int i=0;i<map[index].length;i++){                  
+			if(map[index][i]>0&&!bool[i]){                      
+				node node=new node(i, length+map[index][i]);                  
+				if(len[i]>node.lenth)//需要更新節點的時候更新節點並加入隊列                      
+				{                          
+					len[i]=node.lenth;                          
+					q1.add(node);                      
+					
+				}                 
+				
+			}              
+			
+		}          
+		
+	}          
+	for(int i=0;i<6;i++)          
+	{              System.out.println(len[i]);          
+		
+	}      
+	
+}      
+static Comparator<node>com=new Comparator<node>() {            
+	public int compare(node o1, node o2) {             
+		return o1.lenth-o2.lenth;          
+		
+	}      
+	
+};        
+private static void initmap(int[][] map) {          
+	map[0][1]=2;map[0][2]=3;map[0][3]=6;          
+	map[1][0]=2;map[1][4]=4;map[1][5]=6;          
+	map[2][0]=3;map[2][3]=2;          
+	map[3][0]=6;map[3][2]=2;map[3][4]=1;map[3][5]=3;          
+	map[4][1]=4;map[4][3]=1;          
+	map[5][1]=6;map[5][3]=3;      
+	
+}  
+	
+} 
